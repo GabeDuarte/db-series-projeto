@@ -1,11 +1,11 @@
 const seriesServices = require("./../services/series.service.js");
 const mongoose = require("mongoose");
 
-const seriesServices = new seriesServices();
+const SeriesServices = new seriesServices();
 
 class seriesController{
   async getSeries(req, res) {
-    const series = await seriesServices.findAll();
+    const series = await SeriesServices.findAll();
     res.send(series);
   }
 
@@ -13,11 +13,11 @@ class seriesController{
     const id = req.params.id;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      res.status(422).send("Código inválido.");
+      res.status(422).send(" ");
       return;
     }
 
-    const serie = await seriesServices.findById(id);
+    const serie = await SeriesServices.findById(id);
 
 
     if (!serie) {
@@ -43,7 +43,7 @@ class seriesController{
       return;
     }
 
-    const serieSalva = await seriesServices.createSerie(serie);
+    const serieSalva = await SeriesServices.createSerie(serie);
 
     res.send(serieSalva);
   }
@@ -56,7 +56,7 @@ class seriesController{
       return;
     }
 
-    const serie = await seriesServices.findById(id);
+    const serie = await SeriesServices.findById(id);
 
 
     if (!serie) {
@@ -82,8 +82,8 @@ class seriesController{
       return;
     }
 
-    seriesServices.updateSerie(novaSerie, id);
-    const serieAtualizada = await seriesServices.findById(id);
+    SeriesServices.updateSerie(novaSerie, id);
+    const serieAtualizada = await SeriesServices.findById(id);
 
     res.send(serieAtualizada);
   }
@@ -96,7 +96,7 @@ class seriesController{
       return;
     }
 
-    const serie = await seriesServices.findById(id);
+    const serie = await SeriesServices.findById(id);
 
     if (!serie) {
       res.status(404).send("A Serie não foi encontrada.");
@@ -104,7 +104,7 @@ class seriesController{
       return;
     }
 
-    await seriesServices.delete(id);
+    await SeriesServices.deleteSerie(id);
 
     res.send({ message: "Serie excluída com sucesso" });
   }

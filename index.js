@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 
 const cors = require('cors');
 
-const seriesRoutes = require('../routes/series.routes.js');
+const seriesRoutes = require('./routes/series.routes');
 
-mongoose.connect('mongodb://localhost:27017/series', {useNewUrlParser: true, useUnifiedTopology: true,});
+mongoose.connect('mongodb://localhost:27017/series', {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false,});
 
 const port = 5000;
 
@@ -14,7 +14,7 @@ const Serie = require('./models/series')
 
 const app = express();
 app.use(express.json());
-app.use(cors(corsOptions));
+
 app.use(seriesRoutes);
 
 
@@ -22,6 +22,7 @@ const corsOptions = {
     origin: 'http:localhost:3000',
     optionsSucessStatus: 200,
 };
+app.use(cors(corsOptions));
 
 app.listen(port, ()=>{console.info(`Seu sevidor está rodando em: http://localhost:${port}`)});
 

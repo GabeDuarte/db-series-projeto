@@ -16,9 +16,6 @@ const Serie = new mongoose.Schema({
     descriçao: {type: String,
     required: false},
 
-    created_at: {type: Date,
-    required: true,
-    default: Date.now,},
 })
 
 module.exports = mongoose.model('serie', Serie);
